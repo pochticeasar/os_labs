@@ -1,0 +1,9 @@
+#!/bin/bash
+
+for i in $(ps -ef --no-headers | awk '{print $1}' | sort | uniq)
+do 
+echo $i >> ansMod.txt
+ps -ef --no-header | awk -v search=$i '{if ($1 == search)  print $2}' >> ansMod.txt
+done
+
+

@@ -1,0 +1,24 @@
+#!/bin/bash
+while true 
+	do
+	read a
+	case $a in 
+		"+")
+			kill -USR1 $(cat .pid)
+			;;
+		"*")
+			kill -USR2 $(cat .pid)
+			;;
+		"TERM")
+			kill -SIGTERM $(cat .pid)
+			echo "Generator is stopped"
+			exit 0
+			;;
+		*)
+			:
+			;;
+	esac	
+done
+
+	
+

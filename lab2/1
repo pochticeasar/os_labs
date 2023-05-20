@@ -1,0 +1,5 @@
+#!/bin/bash
+ps -ef --no-header | awk -v user=$USER '$1 == user {print $0}' | wc -l>ans1.txt   
+ps -ef | awk -v user=$USER '$1 == user {print $2 ": " $8}'>>ans1.txt
+
+

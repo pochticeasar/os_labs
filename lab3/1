@@ -1,0 +1,11 @@
+#!/bin/bash
+
+date=$(date +%d_%m_%y_%H_%M_%S)
+date=$(date +%d_%m_%y_%H_%M_%S)
+cd $HOME
+rm -r test
+mkdir test && {
+ echo "catalog test was created successfully" > report ;
+ touch test/$date 
+} 
+ping www.net_nikogo.ru || echo "$(date +%d_%m_%y_%H_%M_%S): error" >> $HOME/report 

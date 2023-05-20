@@ -1,0 +1,21 @@
+#!/bin/bash
+file=$1
+trash="/home/.trash"
+
+if [[ ! -d $trash ]]
+then
+	mkdir $trash
+	echo "Directory has been created"
+fi
+link_name=$(date +%d_%m_%y_%H_%M_%S)
+path="${trash}/${link_name}"
+echo $path
+if [[ -f $file ]]
+then
+	ln $file $path && {
+		rm $file
+		echo $PWD/$file " " $link_name>>~/.trash.log
+	}
+else 
+	echo "No such file"
+fi  

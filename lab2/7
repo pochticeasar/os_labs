@@ -1,0 +1,25 @@
+#!/bin/bash
+for  i in $(ps -ef --no-headers | awk '{print $2}') 
+do 
+if [[ -d "/proc/$i" ]]; then 
+	echo $i
+	echo $(grep "read_bytes:" /proc/$i/io | awk '{print $2}')
+fi 
+done >old7.txt
+sleep 60s
+for i in  $(ps -ef --no-headers | awk '{print $2}')
+do 
+if [[ -d "/proc/$i" ]]; then  
+	old=$(grep $i old7.txt | awk '{print $2}')
+	new=$(grep "read_bytes:" /proc/$i/io | awk '{print $2}')
+	if [[ $old == "" ]]
+	then
+	old=0
+	fi
+	if [[ $new == "" ]]
+	then
+	new=$old
+	fi
+	echo $i " : " $(cat /proc/$i/cmdline | tr -d '\0') " : " $(($new - $old))
+fi
+done | sort -k 5 -n -r | head -n 3  

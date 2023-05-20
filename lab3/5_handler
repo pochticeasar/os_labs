@@ -1,0 +1,40 @@
+#!/bin/bash
+ans=1
+sign="+"
+(tail -n 0 -f "pipe") |
+while true; 
+	do 
+	read a
+	case $a in 
+		"+")
+			sign="+"
+			;;
+		"*")
+			sign="*"
+			;;
+		"[0-9]+")
+			let ans=ans"$sign"$a;
+			;;
+		"QUIT")
+			echo $ans
+			echo "Calculation was stopped"
+			killall tail
+			killall 5_gen
+			exit 0
+			;;
+		*)
+			echo "Wrong input"
+			killall tail
+			killall 5_gen
+			exit 1
+			;;
+	esac
+	done
+			
+
+
+
+
+
+
+

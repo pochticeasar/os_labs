@@ -1,0 +1,9 @@
+#!/bin/bash
+./4m &
+./4m &
+./4m &
+
+pid1=$(pgrep 4m --oldest)
+pid3=$(pgrep 4m --newest)
+kill $pid3
+renice -n 20 $pid1

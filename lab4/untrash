@@ -1,0 +1,8 @@
+#!/bin/bash
+
+file=$1
+echo $(basename /home/user/lab4/rmtrash)
+#for name in $(awk -v file_name=$file
+
+
+

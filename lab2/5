@@ -1,0 +1,19 @@
+#!/bin/bash
+./4 
+
+cat ans4.txt |
+awk -F ' : |=' 'BEGIN { prev = -1; cnt = 0; sum  = 0} {
+if (prev != $4) {
+	if (cnt != 0) {
+		print "Average_Running_Children _of_parentID=",prev, " is ", (sum / cnt)	
+	}
+	sum = 0;
+	cnt = 0;
+}
+cnt = cnt + 1;
+sum = sum + $6;
+prev = $4;
+print $0;
+}
+END{ print "Average_Running_Children_of_ParentID=" prev " is " (sum/cnt)}'
+

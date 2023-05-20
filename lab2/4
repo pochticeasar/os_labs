@@ -1,0 +1,18 @@
+#!/bin/bash
+
+for i in $(ps -ef --no-header | awk '{print $2}')
+do 
+ppid=$(grep -s "PPid" /proc/"$i"/status | awk '{print $2}' )
+sum=$(grep -s "se.sum_exec_runtime" /proc/"$i"/sched | awk  '{print $3}')
+nr=$(grep -s "nr_switches" /proc/"$i"/sched | awk  '{print $3}')
+if [[  $ppid != "" && $nr != "" ]]
+then 
+del=$(echo "scale=2 ; $sum / $nr" | bc)
+echo "$i $ppid $del" 
+fi
+done |
+sort -k 2 -n |
+awk '{print "ProccesID=" $1 " : Parent_ProccessID=" $2 " : AverageRunningTime="$3}'>ans4.txt
+ 
+
+

@@ -1,0 +1,50 @@
+#!/bin/bash
+ans=1
+sign="+"
+(tail -f "pipe") |
+while true;
+	do
+	read a
+	echo $a
+	case $a in 
+		"+")
+			sign="+"
+			echo "sign"
+			;;
+		"*")
+			sign="*"
+			echo "sign"
+			;;
+		"-")
+			sign="-"
+			echo "sign"
+			;;
+		"/")
+			sign="/"
+			echo "sign"
+			;;
+		"[0-9]+")
+			ans=$(bc <<< 'sacle=2;ans"$sign"$a');
+			echo $ans
+			;;
+		"QUIT")
+			echo $ans
+			echo "Calculation was stopped"
+			killall tail
+			killall 5_mod
+			exit 0
+			;;
+		*)
+			echo "Wrong input"
+			killall tail
+			killall gen_mod
+			exit 1
+			;;
+	esac
+done
+
+
+
+
+
+
