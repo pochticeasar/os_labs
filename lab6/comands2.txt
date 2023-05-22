@@ -1,0 +1,21 @@
+2.1
+echo %computername%
+net share temp=C:\lab6\2\%computername%\temp
+
+copy.bat
+copy con 2.2
+forfiles /p C:\Windows /c "cmd /c if @fsize LSS 2097152 (attrib -a @file) else (attrib +a @file)" 
+xcopy /a /Z C:\Windows \\%computername%\temp
+^Z
+
+2.3
+schtasks /create /SC MINUTE /TN "CopyTask" /TR "C:\lab6\2\copy.bat"
+
+2.4
+taskkill /F /IM cmd.exe /T
+
+2.5
+FC /B C:\Windows\explorer.exe \\%computername%\temp\explorer.exe
+
+2.6
+schtasks /run /TN "CopyTask"
